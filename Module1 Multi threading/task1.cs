@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Module1_Multi_threading
 {
@@ -15,8 +16,29 @@ namespace Module1_Multi_threading
     {
         public void Run()
         {
-            Console.Write("now working task1");
-            Console.ReadLine();
+            var events = new List<ManualResetEvent>();
+            Console.WriteLine("Now working task 1");
+            DateTime start = DateTime.Now;            
+            Task[] tasks = Enumerable.Range(1, 100).Select(i =>            
+                Task.Factory.StartNew(() => {
+                Callback(i);
+            }
+            )).ToArray();
+
+            // Wait on all the tasks.
+            Task.WaitAll(tasks);
+            TimeSpan span = DateTime.Now - start;
+            Console.WriteLine(string.Format("{0} ms",(int)span.TotalMilliseconds));
+            Console.ReadKey();
         }
+
+        void Callback(object numberTask)
+        {
+            for (int iteration = 1; iteration <= 1000; iteration++)
+            {
+                Console.WriteLine(string.Format("Task #{0} – {1}", (int)numberTask, iteration));
+            }
+            
+        }       
     }
 }
