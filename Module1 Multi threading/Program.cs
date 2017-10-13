@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            task1 task = new task1();
+            var task = new task2();
             task.Run();
         }
     }
