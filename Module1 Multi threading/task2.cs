@@ -21,9 +21,9 @@ namespace Module1_Multi_threading
         {
             var firstTask = new Task(
                 () => FirstTask());
-            var secondTask = firstTask.ContinueWith((t) => SecondTask());
-            var thirdTask = secondTask.ContinueWith((t) => ThirdTask());
-            var forthdTask = thirdTask.ContinueWith((t) => FourthTask());
+            firstTask.ContinueWith((t) => SecondTask())
+                .ContinueWith((t) => ThirdTask())
+                .ContinueWith((t) => FourthTask());
             firstTask.Start();
             Console.ReadKey();
         }

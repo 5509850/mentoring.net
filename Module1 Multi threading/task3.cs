@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Module1_Multi_threading
 {
@@ -12,8 +13,22 @@ namespace Module1_Multi_threading
     {
         public void Run()
         {
-            Console.Write("now working task 3");
-            Console.ReadLine();
+            int[] matrix1 = { 1, 4, 3, 6, 4 };
+            int[] matrix2 = { 2, 2, 5, 2, 8 };
+            List<int[]> list = new List<int[]>();
+            list.Add(matrix1);
+            list.Add(matrix2);
+            Parallel.ForEach(list, Multiply);
+            Console.ReadKey();
         }
+
+        //http://ru.onlinemschool.com/math/assistance/matrix/multiply/
+        private void Multiply(int[] matrix)
+        {
+            for (int i = 0; i < matrix.Length; i++)
+            {
+                Console.WriteLine(matrix[i]);
+            }
+        }       
     }
 }
