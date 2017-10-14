@@ -1,0 +1,6 @@
+D:\MENTORING.NET\mentoring.net\Module1 Multi threading\bin\Debug\Module1 Multi threading.exe.config
+D:\MENTORING.NET\mentoring.net\Module1 Multi threading\bin\Debug\Module1 Multi threading.exe
+D:\MENTORING.NET\mentoring.net\Module1 Multi threading\bin\Debug\Module1 Multi threading.pdb
+D:\MENTORING.NET\mentoring.net\Module1 Multi threading\obj\Debug\Module1 Multi threading.csprojResolveAssemblyReference.cache
+D:\MENTORING.NET\mentoring.net\Module1 Multi threading\obj\Debug\Module1 Multi threading.exe
+D:\MENTORING.NET\mentoring.net\Module1 Multi threading\obj\Debug\Module1 Multi threading.pdb
