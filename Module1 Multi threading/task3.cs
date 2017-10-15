@@ -73,7 +73,7 @@ namespace Module1_Multi_threading
                    sb.Append(array[i, j]);
                    sb.Append(" ");
                 }
-                sb.Append(System.Environment.NewLine);
+                sb.Append(Environment.NewLine);
             }
             Console.WriteLine(sb.ToString());
         }

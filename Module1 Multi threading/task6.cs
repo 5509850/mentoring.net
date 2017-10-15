@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Module1_Multi_threading
 {
@@ -14,10 +14,53 @@ namespace Module1_Multi_threading
     /// </summary>
     class task6
     {
+        static Mutex sync = new Mutex();
+        List<int> list = null;    
+        bool printstarted = false;
         public void Run()
         {
-            Console.Write("now working task 6");
-            Console.ReadLine();
+            list = new List<int>();
+            DateTime start = DateTime.Now;
+            var taskWorkWithCollection = Task.Factory.StartNew(WorkWithCollection);
+            var taskPrintNewElement = Task.Factory.StartNew(PrintNewElement);      
+            Task.WaitAll(taskWorkWithCollection, taskPrintNewElement);
+            TimeSpan span = DateTime.Now - start;
+            Console.WriteLine(string.Format("Finish: {0} ms", (int)span.TotalMilliseconds));
+            Console.ReadKey();
+        }
+
+
+
+        void WorkWithCollection()
+        {
+            while (!printstarted)
+            {
+                Task.Delay(1);
+            }
+            var rand = new Random();
+            for (int i = 1; i <= 10; i++)
+            {
+                sync.WaitOne();
+                list.Add(rand.Next());
+                Console.WriteLine(string.Format("added {0} = ", i));
+                sync.ReleaseMutex();
+            }
+            
+        }
+
+        void PrintNewElement()
+        {
+            printstarted = true;
+            while (list.Count < 10)
+            {
+                if (list != null && list.Count != 0)
+                {
+                    sync.WaitOne();
+                    Console.WriteLine(list[list.Count - 1]);                    
+                    sync.ReleaseMutex();
+                }
+            }
+            Console.WriteLine(Environment.NewLine);
         }
     }
 }

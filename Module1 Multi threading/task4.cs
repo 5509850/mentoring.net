@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 
 namespace Module1_Multi_threading
 {
@@ -12,11 +10,36 @@ namespace Module1_Multi_threading
     /// Use Thread class for this task and Join for waiting threads.
     /// </summary>
     public class task4
-    {       
+    {
+        int state = 20;    
         public void Run()
         {
-            Console.Write("now working task 4");
-            Console.ReadLine();
+            DateTime start = DateTime.Now;           
+            Recursia(10);
+            TimeSpan span = DateTime.Now - start;
+            Console.WriteLine(string.Format("Finish: {0} ms", (int)span.TotalMilliseconds));
+            Console.ReadKey();
+        }
+
+        int Recursia(int i)
+        {
+            if (i == 0)
+            {
+                return 0;
+            }
+            i -= 1;
+            var thread = new Thread(CountDown);
+            thread.Start(state);
+            thread.Join();
+            Recursia(i);
+            return i;
+        }
+         
+        void CountDown(object s)
+        {
+            var count = (int)s;
+            state = count - 1;
+            Console.WriteLine(state);
         }
     }
 }
