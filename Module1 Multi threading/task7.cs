@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Module1_Multi_threading
 {
@@ -15,11 +13,44 @@ namespace Module1_Multi_threading
     /// Demonstrate the work of the each case with console utility.*/
     /// </summary>
     class task7
-    {        
+    { 
         public void Run()
         {
-            Console.Write("now working task 7");
-            Console.ReadLine();
+            bool success = false;
+            //a)
+            var parentTask = new Task<bool>(
+                () =>             
+                    {        
+                                        
+                        Console.WriteLine("working parent task");
+                        return success;
+                    });
+            parentTask.ContinueWith((t) =>
+            {                
+                Console.WriteLine("working a) always task");
+            });
+            
+            parentTask.ContinueWith((t) =>
+            {                
+                if (!parentTask.Result)
+                {
+                    Console.WriteLine("working b) without success task");
+                }
+                if (parentTask.IsFaulted)
+                {
+                    Console.WriteLine("working c) after Faulted task");
+                }
+                    
+                if (parentTask.IsCanceled)
+                {
+                    Console.WriteLine("working d) after cancel task");
+                }
+            }
+                
+                );
+
+            parentTask.Start();
+            Console.ReadKey();
         }
     }
 }
