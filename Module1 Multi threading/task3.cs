@@ -10,7 +10,7 @@ namespace Module1_Multi_threading
     /// For check Result look
     /// http://ru.onlinemschool.com/math/assistance/matrix/multiply/
     /// </summary>
-    public class task3
+    public class Task3
     {
         int m = 5;
         int n = 4;
@@ -35,7 +35,7 @@ namespace Module1_Multi_threading
             Console.ReadKey();
         }
 
-       void Init(int[,] array)
+      private void Init(int[,] array)
         {
             var rand = new Random(array.GetLength(0) + array.GetLength(1));
             for (int i = 0; i < array.GetLength(0); i++)
@@ -47,7 +47,7 @@ namespace Module1_Multi_threading
             }                 
         }
 
-        int[,] Multiply(int[,] a, int[,] b)
+        private int[,] Multiply(int[,] a, int[,] b)
         {
             int[,] Result = new int[a.GetLength(0), b.GetLength(1)];
             Parallel.For(0, a.GetLength(0), i => {
@@ -63,7 +63,7 @@ namespace Module1_Multi_threading
             return Result;
         }
 
-        void Show(int[,] array)
+        private void Show(int[,] array)
         {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < array.GetLength(0); i++)

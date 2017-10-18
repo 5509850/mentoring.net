@@ -32,7 +32,9 @@ namespace Module1_Multi_threading
             Console.WriteLine("----------");
             Console.WriteLine("8. Exit");
             var result = Console.ReadLine();
-            return Convert.ToInt32(result);
+            int code = 0;
+            int.TryParse(result, out code);
+            return code;
         }
 
         static void Run(int menuItem)
@@ -41,43 +43,43 @@ namespace Module1_Multi_threading
             {
                 case 1:
                     {
-                        var task = new task1();
+                        var task = new Task1();
                         task.Run();
                         break;
                     }
                 case 2:
                     {
-                        var task = new task2();
+                        var task = new Task2();
                         task.Run();
                         break;
                     }
                 case 3:
                     {
-                        var task = new task3();
+                        var task = new Task3();
                         task.Run();
                         break;
                     }
                 case 4:
                     {
-                        var task = new task4();
+                        var task = new Task4();
                         task.Run();
                         break;
                     }
                 case 5:
                     {
-                        var task = new task5();
+                        var task = new Task5();
                         task.Run();
                         break;
                     }
                 case 6:
                     {
-                        var task = new task6();
+                        var task = new Task6();
                         task.Run();
                         break;
                     }
                 case 7:
                     {
-                        var task = new task7();
+                        var task = new Task7();
                         task.Run();
                         break;
                     }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace Module1_Multi_threading
@@ -12,7 +9,7 @@ namespace Module1_Multi_threading
     /// decrement it, print and pass as a state into the newly created thread. 
     /// Use ThreadPool class for this task and Semaphore for waiting threads.
     /// </summary>
-    public class task5
+    public class Task5
     {
         int state = 20;
         static Semaphore sem = new Semaphore(1, 1);
@@ -22,7 +19,7 @@ namespace Module1_Multi_threading
             Console.ReadKey();
         }
 
-        int Recursia(int i)
+       private int Recursia(int i)
         {
             if (i == 0)
             {
@@ -34,13 +31,12 @@ namespace Module1_Multi_threading
             return i;
         }
 
-        void CountDown(object obj)
+        private void CountDown(object obj)
         {   
             sem.WaitOne();
             state -= 1;
             sem.Release();
-            Console.WriteLine(state);
-            
+            Console.WriteLine(state);            
         }
     }
 }

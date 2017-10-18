@@ -12,45 +12,31 @@ namespace Module1_Multi_threading
     /// d.	Continuation task should be executed outside of the thread pool when the parent task would be cancelled
     /// Demonstrate the work of the each case with console utility.*/
     /// </summary>
-    class task7
+    public class Task7
     { 
         public void Run()
-        {
-            bool success = false;
-            //a)
-            var parentTask = new Task<bool>(
-                () =>             
-                    {        
-                                        
-                        Console.WriteLine("working parent task");
-                        return success;
-                    });
-            parentTask.ContinueWith((t) =>
-            {                
-                Console.WriteLine("working a) always task");
-            });
-            
-            parentTask.ContinueWith((t) =>
-            {                
-                if (!parentTask.Result)
+        {            
+            var parentTask = new Task(
+                () =>
                 {
-                    Console.WriteLine("working b) without success task");
-                }
-                if (parentTask.IsFaulted)
-                {
-                    Console.WriteLine("working c) after Faulted task");
-                }
-                    
-                if (parentTask.IsCanceled)
-                {
-                    Console.WriteLine("working d) after cancel task");
-                }
-            }
-                
-                );
-
+                    ParentTask();         
+                });
+         
+            parentTask.ContinueWith(t =>
+            {
+                Console.WriteLine("Working a) always task");
+            })
+            .ContinueWith(t => Console.WriteLine("working b) without success task"), TaskContinuationOptions.OnlyOnFaulted)
+            .ContinueWith(t => Console.WriteLine("working d) task would be cancelled"), TaskContinuationOptions.OnlyOnCanceled)
+            .ContinueWith(t => Console.WriteLine("working c) parent task would be finished with fail and parent task thread should be reused for continuation"), 
+                        TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.RunContinuationsAsynchronously);
             parentTask.Start();
             Console.ReadKey();
+        }
+
+        private void ParentTask()
+        {
+            Console.WriteLine("Working parent task");            
         }
     }
 }

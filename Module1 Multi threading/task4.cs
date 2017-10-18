@@ -9,7 +9,7 @@ namespace Module1_Multi_threading
     /// decrement it, print and pass as a state into the newly created thread.
     /// Use Thread class for this task and Join for waiting threads.
     /// </summary>
-    public class task4
+    public class Task4
     {
         int state = 20;    
         public void Run()
@@ -21,7 +21,7 @@ namespace Module1_Multi_threading
             Console.ReadKey();
         }
 
-        int Recursia(int i)
+       private int Recursia(int i)
         {
             if (i == 0)
             {
@@ -35,7 +35,7 @@ namespace Module1_Multi_threading
             return i;
         }
          
-        void CountDown(object s)
+        private void CountDown(object s)
         {
             var count = (int)s;
             state = count - 1;

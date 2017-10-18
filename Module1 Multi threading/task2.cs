@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Module1_Multi_threading
@@ -14,7 +12,7 @@ namespace Module1_Multi_threading
     /// Fourth Task – calculates the average value. 
     /// All this tasks should print the values to console
     /// </summary>
-    public class task2
+    public class Task2
     {
         int[] array = new int[10];
         public void Run()
@@ -28,7 +26,7 @@ namespace Module1_Multi_threading
             Console.ReadKey();
         }
 
-        void FirstTask()
+        private void FirstTask()
         {
             var rand = new Random();            
             for (int i = 0; i < 10; i++)
@@ -39,7 +37,7 @@ namespace Module1_Multi_threading
             Console.WriteLine("***************");
         }
 
-        void SecondTask()
+        private void SecondTask()
         {
             var rand = new Random();
             for (int i = 0; i < 10; i++)
@@ -50,7 +48,7 @@ namespace Module1_Multi_threading
             Console.WriteLine("***************");
         }
 
-        void ThirdTask()
+        private void ThirdTask()
         {
             array = array.OrderBy(i => i).ToArray();
             for (int i = 0; i < 10; i++)
@@ -60,7 +58,7 @@ namespace Module1_Multi_threading
             Console.WriteLine("***************");
         }
 
-        void FourthTask()
+        private void FourthTask()
         {
             long total = 0;
             for (int i = 0; i < 10; i++)
@@ -69,6 +67,5 @@ namespace Module1_Multi_threading
             }           
             Console.WriteLine(total/10);
         }
-
     }
 }
