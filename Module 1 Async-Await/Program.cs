@@ -13,17 +13,17 @@ namespace Module_1_Async_Await
     {
         static void Main(string[] args)
         {
-            MainAsync(args).Wait();
+            MainAsync(args);//.Wait();
         }
 
-        public static async Task MainAsync(string[] args)
+        public static void MainAsync(string[] args)
         {
             int userInput = 0;
             do
             {
-                if (userInput > 0 && userInput < 8)
+                if (userInput > 0)
                 {
-                    await Run(userInput);
+                    Console.WriteLine($"sum = {CalculateSum(userInput)}");
                 }
                 userInput = DisplayMenu(userInput);
             } while (userInput != 0);            
@@ -35,6 +35,7 @@ namespace Module_1_Async_Await
             {
                 Console.WriteLine($"Old N = {oldValue}");
             }
+            Console.WriteLine();
             Console.Write("Enter number N = ");
             var result = Console.ReadLine();
             int N = 0;
@@ -42,19 +43,29 @@ namespace Module_1_Async_Await
             return N;
         }
 
-        private static async Task<int> Run(int userInput)
+        private static int CalculateSum(int N)
         {
-            int a = 0;
-            try
+            int sum = 0;
+            for (int i = N; i > 0; i--)
             {
-                a = await Task.Factory.StartNew<int>(Func <int>(Go()));
+                sum += i;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return await Complete(a);
-        }       
+            return sum;
+        }
+
+        //private static async Task<int> Run(int userInput)
+        //{
+        //    int a = 0;
+        //    try
+        //    {
+        //        a = await Task.Factory.StartNew<int>(Func <int>(Go()));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return await Complete(a);
+        //}       
 
         private static Task Complete()
         {
