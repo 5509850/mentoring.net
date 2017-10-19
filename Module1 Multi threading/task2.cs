@@ -59,13 +59,8 @@ namespace Module1_Multi_threading
         }
 
         private void FourthTask()
-        {
-            long total = 0;
-            for (int i = 0; i < 10; i++)
-            {
-                total += array[i];
-            }           
-            Console.WriteLine(total/10);
+        {            
+            Console.WriteLine(array.Average());
         }
     }
 }
