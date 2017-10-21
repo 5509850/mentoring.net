@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module1 Multi threading", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 1 Async-Await 1", "Module 1 Async-Await\Module 1 Async-Await 1.csproj", "{C57DD43E-20C7-41C7-814B-DAC4467093D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 1 Async-Await 2", "Module 1 Async-Await 2\Module 1 Async-Await 2.csproj", "{97170E5E-5468-4D00-A6CC-09384EBD9DEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C57DD43E-20C7-41C7-814B-DAC4467093D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C57DD43E-20C7-41C7-814B-DAC4467093D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C57DD43E-20C7-41C7-814B-DAC4467093D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97170E5E-5468-4D00-A6CC-09384EBD9DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97170E5E-5468-4D00-A6CC-09384EBD9DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97170E5E-5468-4D00-A6CC-09384EBD9DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97170E5E-5468-4D00-A6CC-09384EBD9DEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
