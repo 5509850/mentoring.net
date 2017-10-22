@@ -10,7 +10,7 @@ namespace Module_1_Async_Await_3
         private static Cart cart;
         private static List<Item> listItems;
         private static Mutex sync = new Mutex();
-        public static async Task<Cart> AddItem(Item item)
+        public static async Task<Cart> AddItemAsync(Item item)
         {
             await Task.Delay(1450);
             try
@@ -39,7 +39,7 @@ namespace Module_1_Async_Await_3
             
             return await Complete(cart);
         }
-        public static async Task<Cart> RemoveItem(Item item)
+        public static async Task<Cart> RemoveItemAsync(Item item)
         {
             await Task.Delay(1250);
             try

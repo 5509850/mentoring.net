@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 1 Async-Await 3", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 1 Async-Await 4", "Module 1 Async-Await 4\Module 1 Async-Await 4.csproj", "{B9DDE240-9D56-426B-AA9F-18D997A554B2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 1", "Module 1", "{6DA0DE34-32DC-4503-B232-9FA49B5DE65D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 2", "Module 2", "{68C3AC13-73A9-4DE3-BB5D-FB2CAEB2D3BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

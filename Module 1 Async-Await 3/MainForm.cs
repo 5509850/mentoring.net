@@ -104,11 +104,11 @@ namespace Module_1_Async_Await_3
             Cart cart = new Cart();
             if (ischecked)
             {              
-                cart = await Server.AddItem(GetItemById(id));
+                cart = await Server.AddItemAsync(GetItemById(id));
             }
             else
             {
-                cart = await Server.RemoveItem(GetItemById(id));
+                cart = await Server.RemoveItemAsync(GetItemById(id));
             }
             label1.Text = $"Subtotal({cart.CountItem} item)";
             label2.Text = $"{cart.TotalCost}.00";
