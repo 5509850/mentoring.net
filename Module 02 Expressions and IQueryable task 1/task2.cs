@@ -24,7 +24,10 @@ namespace Module_02_Expressions_and_IQueryable_task_1
             Console.WriteLine("task 2");
             var mapGenerator = new MappingGenerator();
             var mapper = mapGenerator.Generate<Foo, Bar>();
-            var res = mapper.Map(new Foo() { Name = "alex", Value = 5 });
+            var source = new Foo() { Name = "alex", Value = 5 };
+            var res = mapper.Map(source);
+
+            Console.WriteLine($"{source.GetType().Name}: Name = {source.Name}; Value = {source.Value}");            
             Console.WriteLine($"{res.GetType().Name}: Name = {res.Name}; Value = {res.Value}");          
             Console.ReadKey();
         }
