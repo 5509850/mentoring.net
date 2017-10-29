@@ -17,9 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 1", "Module 1", "{6D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 2", "Module 2", "{68C3AC13-73A9-4DE3-BB5D-FB2CAEB2D3BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 02 Expression Tree task 1", "Module 02 Expressions and IQueryable task 1\Module 02 Expression Tree task 1.csproj", "{CCAB417B-A5EF-4381-A523-7CF43D7E034C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 02 Expression Tree task 2", "Module 02 Expression Tree task 2\Module 02 Expression Tree task 2.csproj", "{97813800-9D48-4829-AFCB-0F30C6D5F0AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 02 Expression Tree task 1-2", "Module 02 Expressions and IQueryable task 1\Module 02 Expression Tree task 1-2.csproj", "{CCAB417B-A5EF-4381-A523-7CF43D7E034C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ priveder Sample", "Module 02 IQueryable task 3\LINQ priveder Sample.csproj", "{4B096486-7457-4911-8280-7BA7A2BB45A0}"
 EndProject
@@ -55,10 +53,6 @@ Global
 		{CCAB417B-A5EF-4381-A523-7CF43D7E034C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCAB417B-A5EF-4381-A523-7CF43D7E034C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCAB417B-A5EF-4381-A523-7CF43D7E034C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97813800-9D48-4829-AFCB-0F30C6D5F0AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97813800-9D48-4829-AFCB-0F30C6D5F0AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97813800-9D48-4829-AFCB-0F30C6D5F0AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97813800-9D48-4829-AFCB-0F30C6D5F0AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B096486-7457-4911-8280-7BA7A2BB45A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B096486-7457-4911-8280-7BA7A2BB45A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B096486-7457-4911-8280-7BA7A2BB45A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
