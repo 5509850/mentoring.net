@@ -120,8 +120,8 @@ namespace Sample03.E3SClient.Entities
 
 	}
 
-	[E3SMetaType("meta:people-suite:people-api:com.epam.e3s.app.people.api.data.EmployeeEntity")]
-	public class EmployeeEntity : E3SEntity
+	[E3SMetaType("meta:upsa-suite:people-upsa-api:com.epam.e3s.app.people.upsa.api.data.UpsaPersonEntity")]    
+    public class EmployeeEntity : E3SEntity
 	{
 		[JsonProperty]
 		double entityBoost { get; set; }
