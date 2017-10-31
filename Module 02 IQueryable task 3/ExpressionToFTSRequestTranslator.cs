@@ -19,20 +19,53 @@ namespace Sample03
 
 		protected override Expression VisitMethodCall(MethodCallExpression node)
 		{
-			if (node.Method.DeclaringType == typeof(Queryable)
+            var name = node.Method.DeclaringType;
+
+            if (node.Method.DeclaringType == typeof(Queryable)
 				&& node.Method.Name == "Where")
-			{
-				var predicate = node.Arguments[1];
-				Visit(predicate);
+			{                
+                var predicate = node.Arguments[1];                
+                Visit(predicate);
 
 				return node;
 			}
-			return base.VisitMethodCall(node);
+            if (node.Method.DeclaringType == typeof(System.String)
+               && node.Method.Name == "StartsWith")
+            {
+                var predicate = node.Arguments[0];
+                resultString.Append("(");
+                Visit(predicate);
+                resultString.Append("*)");
+
+                return base.VisitMethodCall(node); //node;
+            }
+            if (node.Method.DeclaringType == typeof(System.String)
+               && node.Method.Name == "EndsWith")
+            {
+                var predicate = node.Arguments[0];
+                resultString.Append("(*");
+                Visit(predicate);
+                resultString.Append(")");
+
+                return base.VisitMethodCall(node); //node;
+            }
+            if (node.Method.DeclaringType == typeof(System.String)
+              && node.Method.Name == "Contains")
+            {
+                var predicate = node.Arguments[0];
+                resultString.Append("(*");
+                Visit(predicate);
+                resultString.Append("*)");
+
+                return base.VisitMethodCall(node); //node;
+            }            
+            return base.VisitMethodCall(node);
 		}
 
 		protected override Expression VisitBinary(BinaryExpression node)
 		{
-			switch (node.NodeType)
+           
+            switch (node.NodeType)
 			{
 				case ExpressionType.Equal:					
                     if (node.Left.NodeType == ExpressionType.MemberAccess && node.Right.NodeType == ExpressionType.Constant)
@@ -49,16 +82,16 @@ namespace Sample03
                         Visit(node.Left);
                         resultString.Append(")");
                     }
-                    break;
+                    break;            
 
                 default:
 					throw new NotSupportedException(string.Format("Operation {0} is not supported", node.NodeType));
 			};
 
 			return node;
-		}
+		}       
 
-		protected override Expression VisitMember(MemberExpression node)
+        protected override Expression VisitMember(MemberExpression node)
 		{
 			resultString.Append(node.Member.Name).Append(":");
 
@@ -67,7 +100,24 @@ namespace Sample03
 
 		protected override Expression VisitConstant(ConstantExpression node)
 		{
-			resultString.Append(node.Value);
+            if (resultString != null)
+            {
+                string res = resultString.ToString();
+                if (res.Contains(node.Value.ToString()))
+                {
+                    string[] s = res.Split(')');
+                    resultString.Clear();
+                    resultString.Append($"{s[1]}{s[0]})");
+                }
+                else
+                {
+                    resultString.Append(node.Value);
+                }
+            }
+            else
+            {
+                resultString.Append(node.Value);
+            }
 
 			return node;
 		}
