@@ -4,12 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample03
 {
-	public class E3SEntitySet<T> : IQueryable<T> where T : E3SEntity
+    public class E3SEntitySet<T> : IQueryable<T> where T : E3SEntity
 	{
 		protected Expression expression;
 		protected IQueryProvider provider;

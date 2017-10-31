@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample03
 {
-	public class ExpressionToFTSRequestTranslator : ExpressionVisitor
+    public class ExpressionToFTSRequestTranslator : ExpressionVisitor
 	{
 		StringBuilder resultString;
 
@@ -36,20 +34,24 @@ namespace Sample03
 		{
 			switch (node.NodeType)
 			{
-				case ExpressionType.Equal:
-					if (!(node.Left.NodeType == ExpressionType.MemberAccess))
-						throw new NotSupportedException(string.Format("Left operand should be property or field", node.NodeType));
+				case ExpressionType.Equal:					
+                    if (node.Left.NodeType == ExpressionType.MemberAccess && node.Right.NodeType == ExpressionType.Constant)
+                    {
+                        Visit(node.Left);
+                        resultString.Append("(");
+                        Visit(node.Right);
+                        resultString.Append(")");
+                    }
+                    else if (node.Left.NodeType == ExpressionType.Constant && node.Right.NodeType == ExpressionType.MemberAccess)
+                    {
+                        Visit(node.Right);
+                        resultString.Append("(");
+                        Visit(node.Left);
+                        resultString.Append(")");
+                    }
+                    break;
 
-					if (!(node.Right.NodeType == ExpressionType.Constant))
-						throw new NotSupportedException(string.Format("Right operand should be constant", node.NodeType));
-
-					Visit(node.Left);
-					resultString.Append("(");
-					Visit(node.Right);
-					resultString.Append(")");
-					break;
-
-				default:
+                default:
 					throw new NotSupportedException(string.Format("Operation {0} is not supported", node.NodeType));
 			};
 

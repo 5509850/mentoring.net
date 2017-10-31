@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample03
 {
-	class E3SQuery<T> : IQueryable<T>
+    class E3SQuery<T> : IQueryable<T>
 	{
 		private Expression expression;
 		private E3SLinqProvider provider;
