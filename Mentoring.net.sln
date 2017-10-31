@@ -19,9 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module 2", "Module 2", "{68
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 02 Expression Tree task 1-2", "Module 02 Expressions and IQueryable task 1\Module 02 Expression Tree task 1-2.csproj", "{CCAB417B-A5EF-4381-A523-7CF43D7E034C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LINQ priveder Sample", "Module 02 IQueryable task 3\LINQ priveder Sample.csproj", "{4B096486-7457-4911-8280-7BA7A2BB45A0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 02 IQueryable task 3", "Module 02 IQueryable task 33\Module 02 IQueryable task 3.csproj", "{AA4ED37C-C0A2-47A7-93B6-9C71AD33E61C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Module 02 IQueryable task 3", "Module 02 IQueryable task 3\Module 02 IQueryable task 3.csproj", "{4B096486-7457-4911-8280-7BA7A2BB45A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +55,6 @@ Global
 		{4B096486-7457-4911-8280-7BA7A2BB45A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B096486-7457-4911-8280-7BA7A2BB45A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B096486-7457-4911-8280-7BA7A2BB45A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA4ED37C-C0A2-47A7-93B6-9C71AD33E61C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA4ED37C-C0A2-47A7-93B6-9C71AD33E61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA4ED37C-C0A2-47A7-93B6-9C71AD33E61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA4ED37C-C0A2-47A7-93B6-9C71AD33E61C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
