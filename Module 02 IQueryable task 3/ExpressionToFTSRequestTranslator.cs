@@ -82,8 +82,14 @@ namespace Sample03
                         Visit(node.Left);
                         resultString.Append(")");
                     }
-                    break;            
-
+                    break;
+                case ExpressionType.And:
+                    {
+                        Visit(node.Left);
+                        resultString.Append(", ");
+                        Visit(node.Right);
+                    }
+                    break;
                 default:
 					throw new NotSupportedException(string.Format("Operation {0} is not supported", node.NodeType));
 			};
@@ -100,7 +106,7 @@ namespace Sample03
 
 		protected override Expression VisitConstant(ConstantExpression node)
 		{
-            if (resultString != null)
+            if (resultString != null && resultString.Length != 0)
             {
                 string res = resultString.ToString();
                 if (res.Contains(node.Value.ToString()))

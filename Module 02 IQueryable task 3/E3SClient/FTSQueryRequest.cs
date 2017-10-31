@@ -1,18 +1,14 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sample03.E3SClient
 {
-	[JsonObject]
+    [JsonObject]
 	public class Statement
 	{
 		[JsonProperty("query")]
-		public string Query { get; set; }
-	}
+		public string Query { get; set; }       
+    }
 
 	[JsonObject]
 	public class Filter

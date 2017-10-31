@@ -62,50 +62,72 @@ namespace Sample03
             int count = 0;
 
             var employees = new E3SEntitySet<EmployeeEntity>(ConfigurationManager.AppSettings["user"], ConfigurationManager.AppSettings["password"]);
-            Console.WriteLine("Part one");
+            Console.WriteLine("Part 1");
             //<имя фильтруемого поля> == <константа>
             foreach (var emp in employees.Where(e => e.workstation == "EPRUIZHW0249"))
             {
-                Console.WriteLine("{0} {1}", emp.nativename, emp.shortStartWorkDate);
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
             }
-//PART 1
+//PART 1 *********************************************************************************************
             //<константа> == <имя фильтруемого поля>
             foreach (var emp in employees.Where(e => "EPRUIZHW0249" == e.workstation))
             {
-                Console.WriteLine("{0} {1}", emp.nativename, emp.shortStartWorkDate);
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
             }
             Console.WriteLine("**************************");
-//PART 2
-            Console.WriteLine("Part one");
+//PART 2 **********************************************************************************************************
+            Console.WriteLine("Part 2");
             //StartsWith
             foreach (var emp in employees.Where(e => e.workstation.StartsWith("EPRUIZHW024")))
             {
-                Console.WriteLine("{0} {1} {2}", emp.nativename, emp.shortStartWorkDate, emp.workstation);
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
                 count++;
             }
             Console.WriteLine("**************************");
             Console.WriteLine($"StartsWith count = {count}");
             Console.WriteLine("**************************");
-
             count = 0;
+            
             //EndsWith
             foreach (var emp in employees.Where(e => e.workstation.EndsWith("IZHW0249")))
             {
-                Console.WriteLine("{0} {1}", emp.nativename, emp.shortStartWorkDate);
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
                 count++;
             }
             Console.WriteLine("**************************");
             Console.WriteLine($"EndsWith count = {count}");
             Console.WriteLine("**************************");
             count = 0;
+
             //Contains
             foreach (var emp in employees.Where(e => e.workstation.Contains("IZHW024")))
             {
-                Console.WriteLine("{0} {1}", emp.nativename, emp.shortStartWorkDate);
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
                 count++;
             }
             Console.WriteLine("**************************");
             Console.WriteLine($"Contains count = {count}");
+            Console.WriteLine("**************************");
+//PART 3**********************************************************************************
+            //AND
+            Console.WriteLine("Part 3");
+            count = 0;
+            foreach (var emp in employees.Where(e => e.workstation == "EPRUIZHW0249" & e.citySum == "Izhevsk"))
+            {
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
+                count++;
+            }
+            Console.WriteLine("**************************");
+            Console.WriteLine($"AND count = {count}");
+            Console.WriteLine("**************************");
+            count = 0;
+            foreach (var emp in employees.Where(e => e.workstation == "EPRUIZHW0249" & e.citySum == "Minsk"))
+            {
+                Console.WriteLine($"{emp.nativename}, {emp.shortStartWorkDate}, {emp.citySum}, {emp.workstation}");
+                count++;
+            }
+            Console.WriteLine("**************************");
+            Console.WriteLine($"AND Wrong city!!! count = {count}");
         }
     }
 }

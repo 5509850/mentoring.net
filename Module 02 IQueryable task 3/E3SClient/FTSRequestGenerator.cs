@@ -28,23 +28,29 @@ namespace Sample03.E3SClient
 
 		public Uri GenerateRequestUrl(Type type, string query = "*", int start = 0, int limit = 10)
 		{
-			string metaTypeName = GetMetaTypeName(type);
-
-			var ftsQueryRequest = new FTSQueryRequest
-			{
-				Statements = new List<Statement>
-				{
-					new Statement {
-						Query = query
-					}
-				},
-				Start = start,
-				Limit = limit
-			};
+			string metaTypeName = GetMetaTypeName(type);            
+            var ftsQueryRequest = new FTSQueryRequest
+            {
+                Statements = new List<Statement>
+                {
+                    new Statement {
+                        Query = query
+                    }
+                },
+                Start = start,
+                Limit = limit
+            };
 
 			var ftsQueryRequestString = JsonConvert.SerializeObject(ftsQueryRequest);
 
-			var uri = FTSSearchTemplate.BindByName(BaseAddress,
+            if (query.Contains(","))
+            {
+                string[] s = query.Split(',');
+                string newQuery = "\"},{\"query\":\"";
+                ftsQueryRequestString = ftsQueryRequestString.Replace($",{s[1]}", $"{newQuery}{s[1]}");               
+            }
+
+            var uri = FTSSearchTemplate.BindByName(BaseAddress,
 				new Dictionary<string, string>()
 				{
 					{ "metaType", metaTypeName },
