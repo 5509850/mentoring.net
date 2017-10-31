@@ -55,8 +55,8 @@ namespace Sample03
 			}
 		}
 
-
-		[TestMethod]
+        //TASK 3. Need edit <user> and <password> in "App.config"!!!
+        [TestMethod]
 		public void WithProvider()
 		{
 			var employees = new E3SEntitySet<EmployeeEntity>(ConfigurationManager.AppSettings["user"], ConfigurationManager.AppSettings["password"]);
