@@ -30,7 +30,7 @@ namespace Sample03.E3SClient
 
 			Uri request = requestGenerator.GenerateRequestUrl<T>(query, start, limit);
 
-            request = new Uri("https://telescope.epam.com/eco/rest/e3s-eco-scripting-impl/0.1.0/data/select?metaType=meta:upsa-suite:people-upsa-api:com.epam.e3s.app.people.upsa.api.data.UpsaPersonEntity&start=0&limit=10&query={%22data.upsaId%22:%224000741400004990645%22}&fields=data.email,data.firstName,data.city,data.country,data.lastName");
+          //  request = new Uri("https://telescope.epam.com/eco/rest/e3s-eco-scripting-impl/0.1.0/data/select?metaType=meta:upsa-suite:people-upsa-api:com.epam.e3s.app.people.upsa.api.data.UpsaPersonEntity&start=0&limit=10&query={%22data.upsaId%22:%224000741400004990645%22}&fields=data.email,data.firstName,data.city,data.country,data.lastName");
 
             var resultString = client.GetStringAsync(request).Result;
 
