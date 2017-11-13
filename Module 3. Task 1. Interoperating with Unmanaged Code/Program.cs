@@ -8,6 +8,23 @@ using System.Threading;
 
 namespace Module_3.Task_1.Interoperating_with_Unmanaged_Code
 {
+    /// <summary>
+    /// Задание 1.
+///    Создайте библиотеку для Power State management на основе Power Management API.Библиотека в минимальном варианте должна поддерживать следующий функционал:
+///1.	Получение текущей информации(на основе функции CallNtPowerInformation) об управлении питанием такую как:
+///a.LastSleepTime
+///b.LastWakeTime
+///c.SystemBatteryState
+///d.	SystemPowerInformation
+///2.	Резервировать и удалять hibernation файл (также см. функцию CallNtPowerInformation)
+///3.	Переводить компьютер в состояние сна/гибернации(см.SetSuspendState)
+///Примечание.Набор функций может быть расширен по согласованию с ментором
+///Задание 2.
+///На основе данной библиотеки создайте COM компонент, который будет доступен из скриптовых языков и VBA(с поддержкой IDispatch)
+///Задание 3.
+///Напишите тестовые приложения и скрипты(на базе VBScript/JScript), тестирующие данные библиотеки.
+
+    /// </summary>
     class Program
     {
         private const int exit = 9;
@@ -33,8 +50,15 @@ namespace Module_3.Task_1.Interoperating_with_Unmanaged_Code
         private static int DisplayMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("************************");
-            Console.WriteLine("Сhoose an task number");
+            Console.WriteLine("************************");            
+            if (IsAdministrator())
+            {
+                Console.WriteLine("Сhoose an task number (ADMINISTRATOR)");
+            }
+            else
+            {
+                Console.WriteLine("Сhoose an task number");
+            }
             Console.WriteLine();
             Console.WriteLine("1. System Battery State");
             Console.WriteLine("2. System Power Information");
@@ -46,7 +70,7 @@ namespace Module_3.Task_1.Interoperating_with_Unmanaged_Code
             Console.WriteLine("8. Last WakeUP/Sleep Time");
             Console.WriteLine("----------");
             Console.WriteLine($"{exit}. Exit");
-            Console.WriteLine("==========");
+            Console.WriteLine("============================================");
             var result = Console.ReadLine();
             int code = 0;
             int.TryParse(result, out code);
@@ -120,8 +144,9 @@ namespace Module_3.Task_1.Interoperating_with_Unmanaged_Code
 
         private static bool GetAdministrator()
         {
-            Console.WriteLine("App need Administrtor's privileges for it");
-            var exeName = Process.GetCurrentProcess().MainModule.FileName;
+            Console.WriteLine("App need Administrtor's privileges for it!!!! (Enter)");
+            Console.ReadKey();
+            var exeName = Process.GetCurrentProcess().MainModule.FileName.Replace(".vshost.", "."); ;
             ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
             startInfo.Verb = "runas";
             try
@@ -132,8 +157,6 @@ namespace Module_3.Task_1.Interoperating_with_Unmanaged_Code
             {
                 Console.WriteLine(ex.Message);
             }
-            
-            
             return true;
         }      
 

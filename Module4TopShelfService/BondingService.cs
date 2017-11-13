@@ -13,8 +13,7 @@ namespace Module4TopShelfService
     {
         private readonly Timer timer;
         private readonly string logName;
-        private readonly string workimages;
-
+        private readonly string workImagesFolder;
         FileSystemWatcher watcher;
         Thread workThread;
         string inDir;
@@ -24,12 +23,13 @@ namespace Module4TopShelfService
         string textBarcode;
         ManualResetEvent stopWorkEvent;
         AutoResetEvent newFileEvent;
+        static Mutex sync = new Mutex();
 
         public BondingService(string inDir, string outDir, string prefix, string[] ext, string textBarcode)
         {
             timer = new Timer(WorkProcedureTimer);
             logName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TopShelfService.log");
-            workimages = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "workimages");
+            workImagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "workimages");
             this.inDir = inDir;
             this.outDir = outDir;
             this.prefix = prefix;
@@ -47,9 +47,9 @@ namespace Module4TopShelfService
             {
                 Directory.CreateDirectory(inDir);
             }
-            if (!Directory.Exists(workimages))
+            if (!Directory.Exists(workImagesFolder))
             {
-                Directory.CreateDirectory(workimages);
+                Directory.CreateDirectory(workImagesFolder);
             }
             FirstScan();
             watcher = new FileSystemWatcher(inDir);
@@ -85,7 +85,7 @@ namespace Module4TopShelfService
         }
 
         private void WorkProcedure(object obj)
-        {
+        {           
             do
             {
                 foreach (var file in Directory.EnumerateFiles(inDir))
@@ -98,7 +98,7 @@ namespace Module4TopShelfService
                     var fullname = file.Split('\\')[file.Split('\\').Length - 1];
                     if (FilterOn(fullname))
                     {
-                        var outFile = Path.Combine(workimages, Path.GetFileName(file));
+                        var outFile = Path.Combine(workImagesFolder, Path.GetFileName(file));
                         if (TryOpen(inFile, 3))
                         {
                             try
@@ -109,7 +109,7 @@ namespace Module4TopShelfService
                                 }
                                 if (!File.Exists(outFile))
                                 {
-                                    File.Move(inFile, outFile);
+                                    File.Move(inFile, outFile);                                  
                                 }
                             }
                             catch (Exception)
@@ -118,7 +118,7 @@ namespace Module4TopShelfService
                             }
                         }
                     }
-                }
+                }               
                 BondingFiles();
             }
             while (WaitHandle.WaitAny(new WaitHandle[] { stopWorkEvent, newFileEvent }, 1000) != 0);
@@ -141,7 +141,7 @@ namespace Module4TopShelfService
             }
             return false;
         }
-
+        //filter by mask files <prefix>_<number>.<png|jpeg|…>  
         private bool FilterOn(string fullname)
         {            
             var piecename = fullname.Split('_', '.');
@@ -187,7 +187,7 @@ namespace Module4TopShelfService
                 var fullname = file.Split('\\')[file.Split('\\').Length - 1];
                 if (FilterOn(fullname))
                 {
-                    var outFile = Path.Combine(workimages, Path.GetFileName(file));
+                    var outFile = Path.Combine(workImagesFolder, Path.GetFileName(file));
                     if (TryOpen(inFile, 3))
                     {
                         try
@@ -213,13 +213,14 @@ namespace Module4TopShelfService
 
         private void BondingFiles()
         {
+            sync.WaitOne();
             var document = new Document();
             var section = document.AddSection();
             int oldNumber = 0;
             bool firstfile = true;
             int currentNumber = 0;
             List<string> filesForDelete = new List<string>();
-            foreach (var file in Directory.EnumerateFiles(workimages))
+            foreach (var file in Directory.EnumerateFiles(workImagesFolder))
             {
                 if (firstfile)
                 {
@@ -266,6 +267,7 @@ namespace Module4TopShelfService
                     Thread.Sleep(5000);
                 }
             }
+            sync.ReleaseMutex();
         }
 
         private void DeleteFiles(List<string> files)
@@ -283,14 +285,19 @@ namespace Module4TopShelfService
             catch (IOException)
             {
                 Thread.Sleep(5000);
+                DeleteFiles(files);
             }
         }
 
         private bool IsBarCode(string file)
         {
-            var reader = new BarcodeReader() { AutoRotate = true };            
-            var bmp = (Bitmap)Image.FromFile(file);
-            var result = reader.Decode(bmp); 
+            var reader = new BarcodeReader() { AutoRotate = true };
+            Result result = null;
+            using (FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read))
+            {
+                Bitmap bmp = new Bitmap(stream);
+                result = reader.Decode(bmp);
+            }
             return ((result != null) && result.Text.Equals(textBarcode));
         }
     }

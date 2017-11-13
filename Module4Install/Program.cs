@@ -12,6 +12,11 @@ namespace Module4Install
         static void Main(string[] args)
         {
             int userInput = 0;
+            Console.WriteLine("For check work Service");
+            Console.WriteLine("Copy files from 'ExampleImages' folder to 'input' folder.");
+            Console.WriteLine("See in 'App.config' file (key = 'in')");
+            Console.WriteLine("result pdf file in 'output' folder (key = 'out')");
+            Console.WriteLine("-------------------------------");
             do
             {
                 if (userInput > 0 && userInput < 9)
@@ -30,7 +35,14 @@ namespace Module4Install
         {
             Console.WriteLine();
             Console.WriteLine("************************");
-            Console.WriteLine("Сhoose an task number");
+            if (IsAdministrator())
+            {
+                Console.WriteLine("Сhoose an task number (ADMINISTRATOR)");
+            }
+            else
+            {
+                Console.WriteLine("Сhoose an task number");
+            }   
             Console.WriteLine();
             Console.WriteLine("1. Install TopShelf Service");
             Console.WriteLine("2. Start TopShelf Service");
@@ -38,10 +50,10 @@ namespace Module4Install
             Console.WriteLine("4. Uninstall TopShelf Service");
             Console.WriteLine("5. Controller Start TopShelf Service");
             Console.WriteLine("6. Controller Stop TopShelf Service");
-
-            Console.WriteLine("----------");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine();           
             Console.WriteLine($"{exit}. Exit");
-            Console.WriteLine("==========");
+            Console.WriteLine("=================================");
             var result = Console.ReadLine();
             int code = 0;
             int.TryParse(result, out code);
@@ -80,7 +92,7 @@ namespace Module4Install
                             {
                                 var controller = new ServiceController("Module4TopShelfService");
                                 controller.Start();
-                                Console.WriteLine("Module4TopShelfService service is started");
+                                Console.WriteLine("=================> Module4TopShelfService service is started");
                             }
                             catch (Exception ex)
                             {
@@ -103,7 +115,7 @@ namespace Module4Install
                             {
                                 var controller = new ServiceController("Module4TopShelfService");
                                 controller.Stop();
-                                Console.WriteLine("Module4TopShelfService service is stopped");
+                                Console.WriteLine("===================> Module4TopShelfService service is stopped");
                             }
                             catch (Exception ex)
                             {
@@ -115,16 +127,6 @@ namespace Module4Install
                             return GetAdministrator();
                         }
 
-                        break;
-                    }
-
-                case 7:
-                    {
-                        
-                        break;
-                    }
-                case 8:
-                    {                       
                         break;
                     }
             }
@@ -158,8 +160,9 @@ namespace Module4Install
 
         private static bool GetAdministrator()
         {
-            Console.WriteLine("App need Administrtor's privileges for it");
-            var exeName = Process.GetCurrentProcess().MainModule.FileName;
+            Console.WriteLine("App need Administrtor's privileges for it!!!! (Enter)");
+            Console.ReadKey();
+            var exeName = Process.GetCurrentProcess().MainModule.FileName.Replace(".vshost.", ".");
             ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
             startInfo.Verb = "runas";
             try
@@ -170,8 +173,6 @@ namespace Module4Install
             {
                 Console.WriteLine(ex.Message);
             }
-
-
             return true;
         }
     }
