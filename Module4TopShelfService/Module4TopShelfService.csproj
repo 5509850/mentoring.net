@@ -92,6 +92,7 @@
     <Content Include="ExampleImages\img_002.jpeg" />
     <Content Include="ExampleImages\img_003.png" />
     <Content Include="ExampleImages\img_004.jpeg" />
+    <Content Include="ExampleImages\img_555.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

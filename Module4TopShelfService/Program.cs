@@ -55,13 +55,18 @@ namespace Module4TopShelfService
             var prefix = ConfigurationManager.AppSettings["prefix"];            
             string[] ext = {ConfigurationManager.AppSettings["ext"], ConfigurationManager.AppSettings["ext2"]};
             var textBarcode = ConfigurationManager.AppSettings["textBarcode"];
+            int timeout = 0;
+            if (!int.TryParse(ConfigurationManager.AppSettings["timeout"], out timeout))
+            {
+                timeout = 1000;
+            }            
             HostFactory.Run(
                x =>
                {
                    x.Service<BondingService>(
                    s =>
                    {
-                       s.ConstructUsing(() => new BondingService(inDir, outDir, prefix, ext, textBarcode));
+                       s.ConstructUsing(() => new BondingService(inDir, outDir, prefix, ext, textBarcode, timeout));
                        s.WhenStarted(serv => serv.Start());
                        s.WhenStopped(serv => serv.Stop());
                    });

@@ -12,11 +12,16 @@ namespace Module4Install
         static void Main(string[] args)
         {
             int userInput = 0;
-            Console.WriteLine("For check work Service");
+            Console.WriteLine("FOR CHECK WORK THIS Service:");            
             Console.WriteLine("Copy files from 'ExampleImages' folder to 'input' folder.");
             Console.WriteLine("See in 'App.config' file (key = 'in')");
+            Console.WriteLine("img_001.jpeg, img_002.jpeg, img_004.jpeg - good Images");
+            Console.WriteLine("img_003.jpeg - BarCode Images");
+            Console.WriteLine("See in 'App.config' file (key = 'textBarcode')");            
+            Console.WriteLine("img_555.jpeg - bad broken format");
+            Console.WriteLine("folder 'errorFormatFolder' for bad broken format files");            
             Console.WriteLine("result pdf file in 'output' folder (key = 'out')");
-            Console.WriteLine("-------------------------------");
+            Console.WriteLine("--------------------------------------------------");
             do
             {
                 if (userInput > 0 && userInput < 9)
@@ -48,8 +53,8 @@ namespace Module4Install
             Console.WriteLine("2. Start TopShelf Service");
             Console.WriteLine("3. Stop TopShelf Service");
             Console.WriteLine("4. Uninstall TopShelf Service");
-            Console.WriteLine("5. Controller Start TopShelf Service");
-            Console.WriteLine("6. Controller Stop TopShelf Service");
+            Console.WriteLine("5. Controller Start TopShelf Service (Admin only)");
+            Console.WriteLine("6. Controller Stop TopShelf Service (Admin only)");
             Console.WriteLine("-------------------------------");
             Console.WriteLine();           
             Console.WriteLine($"{exit}. Exit");
