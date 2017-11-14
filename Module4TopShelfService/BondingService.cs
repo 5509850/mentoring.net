@@ -2,10 +2,8 @@
 using MigraDoc.Rendering;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Threading;
-using ZXing;
 
 namespace Module4TopShelfService
 {
@@ -278,12 +276,25 @@ namespace Module4TopShelfService
                         isAllFileProcessed = false;
                         break;
                     }
-                    if (IsBarCode(file))
+                    var result = BarCode.IsBarCode(file, textBarcode);
+                    if (result == BarCodeResult.Equals)
                     {
                         filesForDelete.Add(file);
                         isAllFileProcessed = false;
                         break;
                     }
+                    else
+                    {
+                        if (result == BarCodeResult.BrkokenFormat)
+                        {
+                            filesForDelete.Add(file);
+                            MoveToErrorFormatFolder(filesForDelete);
+                            WriteLog($"BrkokenFormat in {file}");
+                            sync.ReleaseMutex();
+                            isAllFileProcessed = false;
+                            return isAllFileProcessed;
+                        }
+                    }                    
                     oldNumber = number;
                     var img = section.AddImage(file);
                     img.Height = document.DefaultPageSetup.PageHeight;
@@ -300,6 +311,7 @@ namespace Module4TopShelfService
                 MoveToErrorFormatFolder(filesForDelete);
                 WriteLog($"BondingFiles error: {ex.Message}");
                 sync.ReleaseMutex();
+                isAllFileProcessed = false;
                 return isAllFileProcessed;
             }
             if (currentNumber != 0)
@@ -386,27 +398,6 @@ namespace Module4TopShelfService
                 WriteLog($"{currentfile}.pdf deleting error: P{ex.Message}");
                 DeleteFiles(files);
             }
-        }
-
-        private bool IsBarCode(string file)
-        {
-            Result result = null;
-            try
-            {
-                var reader = new BarcodeReader() { AutoRotate = true };                
-                using (FileStream stream = File.Open(file, FileMode.Open, FileAccess.Read))
-                {
-                    Bitmap bmp = new Bitmap(stream);
-                    result = reader.Decode(bmp);
-                }
-            }           
-            catch(Exception ex)
-            {
-                MoveToErrorFormatFolder(new List<string>() { file });
-                WriteLog($"BondingFiles error: {ex.Message}");
-                throw new System.FormatException();                
-            }
-            return ((result != null) && result.Text.Equals(textBarcode));
         }
     }
 }
